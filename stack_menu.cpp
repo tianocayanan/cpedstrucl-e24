@@ -57,6 +57,7 @@ int main(){
 	int givChoice = 0, numPush;
   	Stack * s = new Stack(100);
   	while(1){
+  		system("cls");
 		menu();
 		cout<<endl;
 		cout<<"Your choice: "<<endl;
@@ -94,6 +95,7 @@ int main(){
 				break;
 			}
 		}
+		cout<<endl;
 	}
   return 1;
 }
