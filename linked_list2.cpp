@@ -29,6 +29,21 @@ public:
         delete n;
         return ret;
     }
+    
+    void display(){
+		Node *n;
+		n = head;
+		if (n == NULL){
+			cout<<"There is nothing to display. Input values first.";
+		}
+		else{
+			while(n!=NULL){
+				cout<< n->x <<" ";
+				n = n->next;
+			}	
+		}
+		getch();
+	}
 
 private:
     Node *head; 
@@ -36,9 +51,11 @@ private:
 
 void menu(){
 	cout << "What would you like to do?: \n";
+	cout << endl;
 	cout << "1: Insert into linked list \n";
 	cout << "2: Pop \n";
 	cout << "3: Exit \n";
+	cout << "4: Display \n";
 	
 }
 
@@ -62,16 +79,18 @@ int main() {
 				getch();
 				break;
 			}
-			break;
 			case 2:{
 				cout<<list.popValue()<<" has been erased!";
 				getch();
 				break;
 			}
-			break;
 			case 3:{
 				cout<<"\nThank you for using the program!\n";
 				exit(1);
+				break;
+			}
+			case 4:{
+				list.display();
 				break;
 			}
 			default:{
