@@ -109,13 +109,38 @@ int ddelete(int num) {
   return 0;
 }
 
-void deleteall() {
-  struct node * temp, * prev;
-  temp = head;
-  while (temp != NULL){
-  	free(temp);
-  	prev=buf;
+void deleteall(int num) {
+  struct node * n;
+  int c = 1;
+  n = head;
+  while (n != NULL) {
+  	ddelete(num);
   }
+  n = n -> next;
+  c++;
+}
+
+int deleteall(int num){
+	struct node * temp, * prev;
+	temp = head;
+	while (temp != NULL) {
+		if (temp -> data == num) {
+			if (temp == head) {
+				head = temp -> next;
+				free(temp);
+				temp = prev ->next;
+  					} 
+  			else {
+    			prev -> next = temp -> next;
+    			free(temp);
+    			temp = prev ->next;
+  				}
+}
+		else {
+  			prev = temp;
+  			temp = temp -> next;
+			}
+	}
 }
 
 void insert(int num) {
@@ -230,7 +255,9 @@ int main() {
       	addbefore(num,loc);
       	break;
 	  case 8:
-	  	deleteall();
+	  	printf("Enter a number to delete: ");
+	  	scanf("%d", num);
+	  	deleteall(num);
 		break;	
 	  case 9:
         return 0;
