@@ -109,6 +109,15 @@ int ddelete(int num) {
   return 0;
 }
 
+void deleteall() {
+  struct node * temp, * prev;
+  temp = head;
+  while (temp != NULL){
+  	free(temp);
+  	prev=buf;
+  }
+}
+
 void insert(int num) {
   int c = 0;
   struct node * temp;
@@ -162,9 +171,10 @@ int main() {
     printf("3.Size\n");
     printf("4.Delete\n");
     printf("5.Search\n");
-	printf("6.AddAfter\n");
-	printf("7.AddBefore\n");
-	printf("8.Exit\n");
+	printf("6.Add After\n");
+	printf("7.Add Before\n");
+	printf("8.Delete All\n");
+	printf("9.Exit\n");
 	printf("\n");
     printf("Enter your choice : ");
     if (scanf("%d", & i) <= 0) {
@@ -218,8 +228,11 @@ int main() {
       	printf("Enter a specific location: ");
       	scanf("%d", &loc);
       	addbefore(num,loc);
-      	break;	
+      	break;
 	  case 8:
+	  	deleteall();
+		break;	
+	  case 9:
         return 0;
       default:
         printf("Invalid option\n");
