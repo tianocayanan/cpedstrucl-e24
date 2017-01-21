@@ -1,11 +1,28 @@
 #include<stdio.h> 
 #include<stdlib.h>
+#include<iostream>
+
+using namespace std;
 
 struct node {
 	int data;
 	struct node * next;
 } *head;
-  
+
+  void search(int val) {
+  struct node * n;
+  int c = 1;
+  n = head;
+  while (n != NULL) {
+
+    if (n->data==val)
+    printf("Found %d at position %d\n" ,val, c);
+    n = n -> next;
+    c++;
+  }
+}
+
+
 int count() {
   struct node * n;
   int c = 0;
@@ -17,18 +34,7 @@ int count() {
   return c;
 }
 
-void search(int val) {
-  struct node * n;
-  int c = 1;
-  n = head;
-  while (n != NULL) {
-  	if (val == n -> data){
-  		printf("%d found in position %d", val, c);	
-	  }
-  }
-  n = n -> next;
-  c++;
-}
+
 
 void append(int num) {
   struct node * temp, * right;
@@ -55,27 +61,12 @@ void add(int num) {
   }
 }
 
+
 void addafter(int num, int loc) {
   int i;
   struct node * temp, * left, * right;
   right = head;
-  for (i = 0; i < loc; ++i) {
-    left = right;
-    right = right -> next;
-  }
-  temp = (struct node * ) malloc(sizeof(struct node));
-  temp -> data = num;
-  left -> next = temp;
-  left = temp;
-  left -> next = right;
-  
-}
-
-void addbefore(int num, int loc) {
-  int i;
-  struct node * temp, * left, * right;
-  right = head;
-  for (i = 1; i < loc; ++i) {
+  for (i = 0; i < loc; i++) {
     left = right;
     right = right -> next;
   }
@@ -86,6 +77,33 @@ void addbefore(int num, int loc) {
   left -> next = right;
   return;
 }
+
+
+void adelete(int num) {
+  struct node * temp, * prev;
+  temp = head;
+  while (temp != NULL) {
+    if (temp -> data == num) {
+      if (temp == head) {
+        head = temp -> next;
+        free(temp);
+      temp = prev ->next;
+      
+      } else {
+        prev -> next = temp -> next;
+        free(temp);
+        temp = prev ->next;
+      
+      }
+    } else {
+      prev = temp;
+      temp = temp -> next;
+    }
+  }
+
+}
+
+
 
 int ddelete(int num) {
   struct node * temp, * prev;
@@ -109,40 +127,6 @@ int ddelete(int num) {
   return 0;
 }
 
-void deleteall(int num) {
-  struct node * n;
-  int c = 1;
-  n = head;
-  while (n != NULL) {
-  	ddelete(num);
-  }
-  n = n -> next;
-  c++;
-}
-
-int deleteall(int num){
-	struct node * temp, * prev;
-	temp = head;
-	while (temp != NULL) {
-		if (temp -> data == num) {
-			if (temp == head) {
-				head = temp -> next;
-				free(temp);
-				temp = prev ->next;
-  					} 
-  			else {
-    			prev -> next = temp -> next;
-    			free(temp);
-    			temp = prev ->next;
-  				}
-}
-		else {
-  			prev = temp;
-  			temp = temp -> next;
-			}
-	}
-}
-
 void insert(int num) {
   int c = 0;
   struct node * temp;
@@ -151,15 +135,15 @@ void insert(int num) {
     add(num);
   } else {
     while (temp != NULL) {
-      //if (temp -> data < num)
+    //  if (temp -> data < num)
         c++;
       temp = temp -> next;
     }
     if (c == 0)
       add(num);
-    else if (c < count())
+     else if (c < count())
       addafter(num, ++c);
-    else
+    //else
       append(num);
   }
 }
@@ -179,15 +163,9 @@ void display(struct node * r) {
 }
 
 int main() {
-  int i, num, loc, val;
+  int i, num,loc;
   struct node * n;
   head = NULL;
-  insert(1);
-  insert(4);
-  insert(8);
-  insert(3);
-  insert(4);
-  insert(4);
   while (1) {
     printf("Linked List Operations\n");
     printf("===============\n");
@@ -196,11 +174,9 @@ int main() {
     printf("3.Size\n");
     printf("4.Delete\n");
     printf("5.Search\n");
-	printf("6.Add After\n");
-	printf("7.Add Before\n");
-	printf("8.Delete All\n");
-	printf("9.Exit\n");
-	printf("\n");
+    printf("6.Add After\n");
+    printf("7.Delete All\n");
+    printf("8.Exit \n");
     printf("Enter your choice : ");
     if (scanf("%d", & i) <= 0) {
       printf("Enter only an Integer\n");
@@ -216,6 +192,7 @@ int main() {
         if (head == NULL) {
           printf("List is Empty\n");
         } else {
+          
           printf("Element(s) in the list are : ");
         }
         display(n);
@@ -236,31 +213,26 @@ int main() {
         }
         break;
       case 5:
-      	printf("Enter a number in the list to be searched: ");
-      	scanf("%d", &val);
-      	search(val);
-      	break;
-      case 6:
-      	printf("Enter a number to be added: ");
       	scanf("%d", &num);
-      	printf("Enter a specific location: ");
-      	scanf("%d", &loc);
-      	addafter(num,loc);
-      	break;
-	  case 7:
-      	printf("Enter a number to be added: ");
-      	scanf("%d", &num);
-      	printf("Enter a specific location: ");
-      	scanf("%d", &loc);
-      	addbefore(num,loc);
-      	break;
-	  case 8:
-	  	printf("Enter a number to delete: ");
-	  	scanf("%d", num);
-	  	deleteall(num);
-		break;	
-	  case 9:
-        return 0;
+      	search(num);
+        break;
+    case 6:
+    	printf("Enter number \n");
+    	scanf("%d", &num);
+    	printf("Enter location \n");
+    	scanf("%d", &loc);
+    	addafter(num,loc);
+    	break;
+
+    case 7:
+    	printf("What number to delete? \n");
+    	scanf("%d" , &num);
+    	adelete(num);
+    	break;
+    	
+    case 8:
+    	return 0;
+    	break;
       default:
         printf("Invalid option\n");
       }
