@@ -31,8 +31,7 @@ class avlTree{
 		}
 };
 int main(){
-	int choice;
-	char item;
+	int choice, item, i, val;
 	avlTree avl;
 	
 //	root = avl.insert(root, 8);
@@ -55,11 +54,17 @@ int main(){
 		cout << "6. Exit"<<endl;
 		cout << "Enter your choice: ";
 		cin >> choice;
+		cout<<endl;
 		switch(choice){
 			case 1:
-				cout << "Enter value to be inserted: ";
-				cin >> item;
-				root = avl.insert(root, item);
+				cout << "Enter the desired number of values to be entered: ";
+				cin >> val;
+				cout << "Enter values to be inserted: ";
+				for(i=0; i<val; i++){
+					cin >> item;
+					root = avl.insert(root, item);
+				}
+				cout<<endl;
 				break;
 			case 2:
 				if(root == NULL){
